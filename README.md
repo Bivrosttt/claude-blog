@@ -2,12 +2,20 @@
 
 ![Claude Blog - AI-Powered Blog Creation](assets/header.jpeg)
 
-[![CI](https://github.com/AgriciDaniel/claude-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/AgriciDaniel/claude-blog/actions/workflows/ci.yml)
-[![GitHub release](https://img.shields.io/github/v/release/AgriciDaniel/claude-blog)](https://github.com/AgriciDaniel/claude-blog/releases/latest)
-![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-blueviolet)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skills-Compatible-blue)](https://agentskills.io)
+[![Version](https://img.shields.io/github/v/release/AgriciDaniel/claude-blog?label=public%20release)](https://github.com/AgriciDaniel/claude-blog/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/AgriciDaniel/claude-blog/ci.yml?branch=main&label=public%20CI)](https://github.com/AgriciDaniel/claude-blog/actions)
+[![Community](https://img.shields.io/badge/AI%20Marketing%20Hub-Pro%20community-purple)](https://www.skool.com/ai-marketing-hub-pro)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue)
 ![Sub-Skills](https://img.shields.io/badge/Sub--Skills-30-orange)
+
+> **Two versions of this skill.** Choose the one that fits how you work:
+>
+> - 🌐 **Public open-source**: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). MIT-licensed, public releases, open to anyone. Use this if you want the stable, downloadable, no-membership-required version.
+> - 🔒 **Community private mirror** (this repo): [`AI-Marketing-Hub/claude-blog`](https://github.com/AI-Marketing-Hub/claude-blog). Early access to in-development work (v1.9.0+ Blog Delivery Contract, hero ladder, mutation-tested regression coverage), and direct collaboration with the [AI Marketing Hub Pro](https://www.skool.com/ai-marketing-hub-pro) community. Requires membership.
+>
+> The badges above track the **public** repo (`AgriciDaniel/claude-blog`) since the private mirror isn't visible to shields.io. The publishing workflow (private dev → review → public release) is documented in [`docs/PUBLISHING.md`](docs/PUBLISHING.md).
 
 > **Blog:** [See how claude-blog works](https://agricidaniel.com/blog/claude-code-blog-writer)
 
@@ -37,41 +45,47 @@ claude-blog is a Claude Code skill ecosystem for creating, optimizing, and manag
 
 ## Quick Start
 
+> ℹ️ **Which version are you installing?**
+>
+> - **Not an AI Marketing Hub Pro member?** Install from the public repo instead: [`AgriciDaniel/claude-blog`](https://github.com/AgriciDaniel/claude-blog). All the install commands below work there too. Just swap `AI-Marketing-Hub/claude-blog` for `AgriciDaniel/claude-blog` and the plugin slug `claude-blog@ai-marketing-hub-claude-blog` for `claude-blog@agricidaniel-claude-blog`. Public releases ship there; this private mirror runs ahead of public releases.
+> - **Pro member?** The commands below install the **community version** with early access to in-development features. They require an authenticated `gh auth login` (or GitHub PAT) session with access to the `AI-Marketing-Hub` org. If `/plugin marketplace add` fails with a 404, your account isn't in the org yet. DM in the [Skool community](https://www.skool.com/ai-marketing-hub-pro) to get added.
+
 **Plugin Install (Claude Code 1.0.33+):**
 
 ```bash
 # Add marketplace (one-time)
-/plugin marketplace add AgriciDaniel/claude-blog
+/plugin marketplace add AI-Marketing-Hub/claude-blog
 
 # Install plugin
-/plugin install claude-blog@AgriciDaniel-claude-blog
+/plugin install claude-blog@ai-marketing-hub-claude-blog
 ```
 
 **Recommended: clone then verify before installing** (lets you inspect
 install.sh and pin a release tag, closing audit VULN-005):
 
 ```bash
-git clone https://github.com/AgriciDaniel/claude-blog.git
+git clone https://github.com/AI-Marketing-Hub/claude-blog.git
 cd claude-blog
 git checkout v1.9.0          # pin to a release tag (latest as of 2026-05-18)
 chmod +x install.sh && ./install.sh
 ```
 
-**Convenience one-command install (Unix/macOS, only if you trust the
-upstream `AgriciDaniel/claude-blog` GitHub account):**
+**One-Command Install (Unix/macOS):**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.sh | bash
 ```
 
-> Note: piping curl to bash gives the script execution authority on your
-> machine. The clone-then-checkout-tag flow above is safer because you
-> can inspect what runs.
+**One-Command Install (Windows PowerShell):**
 
-**Windows (PowerShell):**
 ```powershell
-.\install.ps1
+irm https://raw.githubusercontent.com/AI-Marketing-Hub/claude-blog/main/install.ps1 | iex
 ```
+
+> Note: piping curl/irm to a shell gives the script execution authority on your
+> machine. The clone-then-checkout-tag flow above is safer because you
+> can inspect what runs. Both flows authenticate against the private repo using
+> your existing `gh auth` / GitHub credentials.
 
 Restart Claude Code after installation to activate.
 
@@ -272,7 +286,7 @@ claude-blog/
 │   ├── test_security_guardrails.py
 │   ├── test_security_v1_8_0.py         # v1.8.0 (path traversal + DoS + contract regression)
 │   └── test_version_coherence.py       # v1.8.5 (pyproject / plugin.json / CITATION / SKILL.md aligned)
-├── docs/                               # 7 documentation files
+├── docs/                               # 8 documentation files
 ├── .github/workflows/ci.yml           # CI pipeline
 ├── install.sh                          # Unix/macOS installer (fallback)
 ├── install.ps1                         # Windows PowerShell installer
@@ -338,6 +352,7 @@ Detailed documentation is available in [docs/](docs/):
 - [Installation Guide](docs/INSTALLATION.md): Unix, macOS, Windows, manual install
 - [Command Reference](docs/COMMANDS.md): Full command reference with examples
 - [Architecture](docs/ARCHITECTURE.md): System design and component overview
+- [Publishing Workflow](docs/PUBLISHING.md): Private-to-public release flow (Pro maintainers)
 - [Templates](docs/TEMPLATES.md): Template reference and customization
 - [Troubleshooting](docs/TROUBLESHOOTING.md): Common issues and fixes
 - [MCP Integration](docs/MCP-INTEGRATION.md): Optional MCP server setup
