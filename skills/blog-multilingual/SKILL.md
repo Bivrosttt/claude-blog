@@ -26,10 +26,10 @@ cultural adaptation, and full international SEO into a single command.
 Produces publication-ready blog posts in every target language with hreflang
 tags, localized JSON-LD schema, and CMS-integration metadata.
 
-> Adapted from `claude-blog-multilingual` by Chris Mueller (AI Marketing Hub
-> Pro Hub Challenge submission, March 2026, scored 85/100 Proficient).
+> Adapted from `claude-blog-multilingual` by Chris Mueller (March 2026,
+> review score 85/100).
 > Original: https://github.com/Chriss54/multilingual-int
-> This port removes the original `curl | bash` installer and credential
+> This port removes the original shell-pipeline installer and credential
 > handling flagged in the audit, integrates as core skills, and uses the
 > shared cultural-adaptation reference under `blog-translate/references/`.
 

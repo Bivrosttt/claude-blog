@@ -4,12 +4,6 @@ set -euo pipefail
 # claude-blog installer
 # Installs the blog skill ecosystem to ~/.claude/skills/ and ~/.claude/agents/
 #
-# One-command install:
-#   curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
-
-# Declared outside main() so the EXIT trap can access it after main() returns
-TEMP_DIR=""
-
 main() {
     local SKILL_DIR="${HOME}/.claude/skills"
     local AGENT_DIR="${HOME}/.claude/agents"
@@ -22,15 +16,12 @@ main() {
     echo "  ╚══════════════════════════════════════╝"
     echo ""
 
-    # Determine source directory (local clone or piped from curl)
+    # Require a local clone so the operator can inspect the files before running.
     if [ -f "${BASH_SOURCE[0]:-}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/skills/blog" ]; then
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     else
-        echo "→ Cloning claude-blog..."
-        TEMP_DIR="$(mktemp -d)"
-        trap 'rm -rf "${TEMP_DIR}"' EXIT
-        git clone --depth 1 https://github.com/AgriciDaniel/claude-blog.git "${TEMP_DIR}/claude-blog" 2>/dev/null
-        SCRIPT_DIR="${TEMP_DIR}/claude-blog"
+        echo "ERROR: run install.sh from a local clone of this repository." >&2
+        exit 1
     fi
 
     # Check prerequisites
@@ -112,8 +103,7 @@ main() {
     # Before v1.8.6 the installer only copied analyze_blog.py, leaving the
     # v1.8.0+ helpers (cognitive_load, discourse_research, load_untrusted_root,
     # lint_prose, sync_flow) absent on the user's machine. This broke the
-    # v1.8.3 "code-enforced" untrusted-data contract for every marketplace
-    # / curl-pipe install (closes 7TH-AUDIT-001).
+    # v1.8.3 code-enforced untrusted-data contract for installed users.
     echo "→ Installing scripts..."
     mkdir -p "${SKILL_DIR}/blog/scripts"
     mkdir -p "${HOME}/.claude/scripts"

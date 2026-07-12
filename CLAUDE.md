@@ -160,7 +160,10 @@ Submit at: claude.ai/settings/plugins/submit or platform.claude.com/plugins/subm
 
 ### Standalone Install (no marketplace)
 ```bash
-curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
+git clone https://github.com/Bivrosttt/claude-blog.git
+cd claude-blog
+chmod +x install.sh
+./install.sh
 ```
 
 ## Release Blog Post

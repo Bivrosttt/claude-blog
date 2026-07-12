@@ -1,19 +1,19 @@
-# Publishing Workflow: Private to Public
+# Publishing Workflow
 
-This skill ships from two repos:
+This fork can be maintained from one organization repository and, when needed, mirrored to a separate public release repository:
 
 | Repo | Role | Visibility | Audience |
 |---|---|---|---|
-| `AI-Marketing-Hub/claude-blog` (origin) | Working repo. All in-development changes land here first. | Private | AI Marketing Hub Pro community + maintainers |
-| `AgriciDaniel/claude-blog` (public-mirror) | Release mirror. Receives reviewed, approved versions of work. | Public | Open-source community, no membership required |
+| `Bivrosttt/claude-blog` (origin) | Working repository for the organization fork and SEO extensions. | Organization-defined | Maintainers and approved collaborators |
+| Optional public mirror | Reviewed release mirror, if the maintainers choose to publish one. | Public | Open-source users |
 
-The two repos share git history. The private mirror runs ahead of public; public catches up on approved releases.
+Keep the fork's upstream attribution and MIT license when syncing changes from the upstream repository.
 
 ---
 
 ## Standard release flow
 
-1. **Work in `origin`** (the private repo, `AI-Marketing-Hub/claude-blog`).
+1. **Work in `origin`** (`Bivrosttt/claude-blog`).
    - Make changes locally on `main` or feature branches.
    - Push to `origin` freely. Iteration here is cheap and not visible to non-members.
 
@@ -38,7 +38,7 @@ The two repos share git history. The private mirror runs ahead of public; public
      - All 11 sub-skill `SKILL.md` files with `version:` frontmatter
    - Move the `## [Unreleased]` block in `CHANGELOG.md` to `## [X.Y.Z] - YYYY-MM-DD` and start a fresh empty Unreleased.
 
-5. **Pro-community review** in the [AI Marketing Hub Pro Skool](https://www.skool.com/ai-marketing-hub-pro). Post the release notes and collect feedback. This is the "approval gate" before the public push.
+5. **Maintainer review**. Review the release notes, dependency changes, security-sensitive code, and generated assets before the public push.
 
 6. **Push to public** (only after explicit approval):
 

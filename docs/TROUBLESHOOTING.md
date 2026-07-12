@@ -84,7 +84,9 @@ system."
 **Fix**:
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1 | iex
+git clone https://github.com/Bivrosttt/claude-blog.git
+Set-Location claude-blog
+./install.ps1
 ```
 
 ---

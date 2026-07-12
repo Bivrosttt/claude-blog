@@ -734,7 +734,7 @@ architecture with shared cluster context.
 
 **Flow**: See `skills/blog-cluster/SKILL.md`. Adapted from
 [semantic-cluster-engine](https://github.com/Drfiya/semantic-cluster-engine)
-(AI Marketing Hub Pro Hub Challenge winner).
+(external reference implementation).
 
 ---
 

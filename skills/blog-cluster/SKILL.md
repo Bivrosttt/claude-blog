@@ -28,7 +28,7 @@ keyword. Three layers: Semantic Clustering (the brain), Cluster Architecture
 (the structure), and Execution Engine (the machine).
 
 > Adapted from the **semantic-cluster-engine** submission by Lutfiya Miller
-> (winner, AI Marketing Hub Pro Challenge, March 2026, 95/100 Exemplary).
+> (March 2026, review score 95/100).
 > Original repository: https://github.com/Drfiya/semantic-cluster-engine
 > This port keeps the Plan + Execute architecture and the cluster context
 > innovation, removes brand-specific (ScienceExperts.ai) styling and image

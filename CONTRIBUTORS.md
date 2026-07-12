@@ -1,6 +1,6 @@
 # Contributors
 
-Claude Blog is built by [@AgriciDaniel](https://github.com/AgriciDaniel) with contributions from the AI Marketing Hub community.
+Claude Blog is built by [@AgriciDaniel](https://github.com/AgriciDaniel) with contributions from the open-source community.
 
 ## v1.8.1 through v1.8.6: Hostile-audit hardening (2026-05-17)
 
@@ -49,7 +49,7 @@ License of the source: MIT. claude-blog remains MIT-licensed. Attribution is a c
 
 ## v1.7.0: Pro Hub Challenge Community Release (2026-04-27)
 
-In March 2026, the AI Marketing Hub Pro community ran the first Pro Hub Challenge: members built skills and extensions for the claude-blog and claude-seo ecosystems. Six submissions were independently audited (security, functionality, code quality, documentation, dependencies, SKILL.md discoverability, innovation). Five scored Proficient or above. After security review and clean-room re-implementation in the claude-blog voice and security posture, two submissions were integrated as core skills in v1.7.0.
+In March 2026, contributors built skills and extensions for the claude-blog and claude-seo ecosystems. Six submissions were independently audited (security, functionality, code quality, documentation, dependencies, SKILL.md discoverability, innovation). Five scored Proficient or above. After security review and clean-room re-implementation, two submissions were integrated as core skills in v1.7.0.
 
 ### Integrated as core skills
 
@@ -60,7 +60,7 @@ In March 2026, the AI Marketing Hub Pro community ran the first Pro Hub Challeng
 
 The cluster engine was the highest-scoring submission of the entire challenge. Lutfiya's design (Plan + Execute architecture with cluster-context injection into per-post writes) is preserved verbatim; we removed brand-specific styling and image prompts, hardened the HTML output against XSS, and routed through claude-blog's existing sub-skills.
 
-Chris's multilingual suite was the most blog-native submission: four user-facing skills explicitly designed for claude-blog. The audit flagged a `curl | bash` installer and credential handling; both are removed in this port. The shared `cultural-adaptation.md` reference is referenced (not duplicated) by `blog-localize`. The `blog-translator` agent ships without `Bash` access (per the v1.9.6 lesson from claude-seo: prompt-injection blast radius).
+Chris's multilingual suite was the most blog-native submission: four user-facing skills explicitly designed for claude-blog. The audit flagged an unsafe shell-pipeline installer and credential handling; both are removed in this port. The shared `cultural-adaptation.md` reference is referenced (not duplicated) by `blog-localize`. The `blog-translator` agent ships without `Bash` access to reduce prompt-injection blast radius.
 
 ### Acknowledged (not integrated in claude-blog v1.7.0)
 
@@ -105,8 +105,3 @@ When writing about a contributor, link to:
 - Their **original submission repo** (the GitHub URL in the table above)
 - The integrated skill in this repo: `https://github.com/AgriciDaniel/claude-blog/tree/main/skills/<skill-name>/`
 - This `CONTRIBUTORS.md` file as the canonical attribution source
-
-## Community
-
-- **Free community:** https://www.skool.com/ai-marketing-hub
-- **Pro community:** https://www.skool.com/ai-marketing-hub-pro

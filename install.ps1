@@ -2,9 +2,6 @@
 # claude-blog installer for Windows
 # Installs the blog skill ecosystem to ~/.claude/skills/ and ~/.claude/agents/
 #
-# One-command install:
-#   iex (irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1)
-
 $ErrorActionPreference = "Stop"
 
 function Write-Color($Color, $Text) {
@@ -23,16 +20,11 @@ function Main {
 
     $SkillDir = Join-Path (Join-Path $env:USERPROFILE ".claude") "skills"
     $AgentDir = Join-Path (Join-Path $env:USERPROFILE ".claude") "agents"
-    $TempDir = $null
-
-    # Determine source directory (local clone or piped from irm)
+    # Require a local clone so the operator can inspect the files before running.
     if ($MyInvocation.MyCommand.Path -and (Test-Path (Join-Path (Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "skills") "blog"))) {
         $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     } else {
-        Write-Color White "Cloning claude-blog..."
-        $TempDir = Join-Path ([System.IO.Path]::GetTempPath()) "claude-blog-install-$([System.Guid]::NewGuid().ToString('N').Substring(0,8))"
-        git clone --depth 1 https://github.com/AgriciDaniel/claude-blog.git $TempDir 2>$null
-        $ScriptDir = $TempDir
+        throw "Run install.ps1 from a local clone of this repository."
     }
 
     # Check prerequisites
@@ -154,11 +146,6 @@ function Main {
         } else {
             Write-Color Yellow "  Skipped: Python not found. Manual install: pip install -r requirements.txt"
         }
-    }
-
-    # Cleanup temp directory if used
-    if ($TempDir -and (Test-Path $TempDir)) {
-        Remove-Item -Recurse -Force $TempDir
     }
 
     # Summary

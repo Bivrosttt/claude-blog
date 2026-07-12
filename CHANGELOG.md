@@ -116,7 +116,7 @@ defects, including 4 HIGH-severity items. The single most damning:
 `install.sh` and `install.ps1` had never been updated to ship the v1.8.0+
 helper scripts. The "code-enforced" nonce defense announced in v1.8.3,
 v1.8.4, and v1.8.5 was structurally non-functional for any user who
-installed via `/plugin install` or `curl | bash` because
+installed via the plugin or one-command installer because
 `scripts/load_untrusted_root.py` was never copied to the target machine.
 v1.8.6 closes this and adds an installer-sync regression test so the
 class of bug cannot recur.
@@ -1249,8 +1249,8 @@ This release closes all of them across 10 focused commits.
 ### Pro Hub Challenge community release + FLOW framework integration
 
 #### Added
-- **`blog-cluster`** sub-skill (winner of the AI Marketing Hub Pro Hub Challenge, March 2026, by Lutfiya Miller). Semantic topic-cluster planning + execution engine. SERP-based keyword grouping, hub-and-spoke architecture, sequential `blog-write` orchestration with shared cluster context and automatic internal-link injection. XSS-hardened cluster-map.html (no inline JavaScript). Adapted from [semantic-cluster-engine](https://github.com/Drfiya/semantic-cluster-engine).
-- **`blog-multilingual`** sub-skill (by Chris Mueller, AI Marketing Hub Pro). One-command international publishing. Orchestrates `blog-write`, `blog-translate`, `blog-localize`, plus optional `seo-hreflang` integration. Adapted from [claude-blog-multilingual](https://github.com/Chriss54/multilingual-int).
+- **`blog-cluster`** sub-skill (by Lutfiya Miller, March 2026). Semantic topic-cluster planning + execution engine. SERP-based keyword grouping, hub-and-spoke architecture, sequential `blog-write` orchestration with shared cluster context and automatic internal-link injection. XSS-hardened cluster-map.html (no inline JavaScript). Adapted from [semantic-cluster-engine](https://github.com/Drfiya/semantic-cluster-engine).
+- **`blog-multilingual`** sub-skill (by Chris Mueller). One-command international publishing. Orchestrates `blog-write`, `blog-translate`, `blog-localize`, plus optional `seo-hreflang` integration. Adapted from [claude-blog-multilingual](https://github.com/Chriss54/multilingual-int).
 - **`blog-translate`** sub-skill (by Chris Mueller). SEO-optimized translation with format preservation, machine-translation artifact detection, and locale-correct number/date/currency formatting.
 - **`blog-localize`** sub-skill (by Chris Mueller). Cultural deep-adaptation with built-in profiles for DACH, Francophone, Hispanic, and Japanese markets, plus a custom-locale template.
 - **`blog-locale-audit`** sub-skill (by Chris Mueller). Multilingual quality control: completeness matrix, hreflang correctness, meta-tag parity, freshness checks.
@@ -1273,7 +1273,7 @@ This release closes all of them across 10 focused commits.
 ## [1.6.8] - 2026-04-08
 
 ### Fixed
-- install.ps1: Fixed Windows PowerShell 5.1 ParameterBindingException (`irm|iex` to `iex (irm)`)
+- install.ps1: Fixed Windows PowerShell 5.1 parameter binding in the local installer.
 - install.ps1: Corrected Python version warning from 3.12+ to 3.11+
 - ci.yml: Bumped actions/checkout and actions/setup-python from v4/v5 to v6
 - docs/INSTALLATION.md: Updated Windows one-liner to match install.ps1 fix
@@ -1431,7 +1431,7 @@ This release closes all of them across 10 focused commits.
 ## [1.2.1] - 2026-03-06
 
 ### Fixed
-- **install.sh**: Move `TEMP_DIR` declaration to global scope so the `EXIT` trap can access it after `main()` returns (fixes "unbound variable" error with `set -u` when installing via `curl | bash`)
+- **install.sh**: Move the temporary-directory declaration to global scope so the cleanup trap can access it after `main()` returns.
 
 ## [1.2.0] - 2026-02-18
 

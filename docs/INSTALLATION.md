@@ -17,25 +17,6 @@ other commands work without it.
 
 ---
 
-## Quick Install (One Command)
-
-### Linux / macOS
-
-```bash
-curl -sL https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.sh | bash
-```
-
-### Windows (PowerShell)
-
-```powershell
-iex (irm https://raw.githubusercontent.com/AgriciDaniel/claude-blog/main/install.ps1)
-```
-
-Both installers automatically copy all skills, agents, references, templates,
-and scripts to the correct Claude Code configuration directories.
-
----
-
 ## Standard Install (Git Clone)
 
 ```bash
@@ -44,6 +25,10 @@ cd claude-blog
 chmod +x install.sh
 ./install.sh
 ```
+
+The installer must be run from the inspected local clone. It copies skills,
+agents, references, templates, and scripts to the Claude Code configuration
+directories.
 
 ### Install Python Dependencies
 
