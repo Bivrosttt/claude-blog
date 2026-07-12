@@ -1,0 +1,4 @@
+interface:
+  display_name: "Free Tool SEO"
+  short_description: "Build free-tool SEO sites and keyword clusters"
+  default_prompt: "Use $free-tool-seo to research keywords, plan a free-tool SEO cluster, and implement or audit an AMIX-style tool page."
