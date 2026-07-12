@@ -1,113 +1,71 @@
 ---
 name: free-tool-seo
-description: Research keywords, design AMIX-style free-tool SEO clusters, and build or audit browser-based utility pages with explanatory content, internal links, and appropriate service CTAs. Use when planning a large free-tool library, analyzing a tool-SEO competitor, researching search intent, or implementing an SEO landing/tool page.
+description: Design, build, and audit browser-based free-tool SEO pages with explanatory content, internal links, privacy language, and contextual service CTAs. Use after keyword research when planning a free-tool library or implementing an SEO landing/tool page.
 ---
 
 # Free Tool SEO
 
-Use this skill to turn small, useful browser tools into a coherent search-acquisition system. Model the information architecture and decision logic; do not copy another site's text, visual assets, branding, or code.
+Use this skill to turn a validated search-intent cluster into a useful browser tool and a page that explains it. Keyword discovery belongs to `$seo-keyword-research`; this skill consumes its research packet and focuses on product/page design, implementation, and verification.
 
-## Workflow
+## 1. Inspect the reference and current product
 
-### 1. Inspect the reference and the current product
+Start from real pages and repository files. For each representative page, record:
 
-Start from real pages, not assumptions. For each representative page, record:
+- title, meta description, canonical URL, indexability signals, and primary keyword;
+- the tool UI, inputs/outputs, and whether processing is browser-local or server-side;
+- heading tree and explanation blocks after the tool;
+- FAQ, limitations, privacy/security claims, related-tool links, service links, and footer links;
+- mobile behavior, load cost, dependencies, empty/error states, and conversion path.
 
-- page title, meta description, canonical URL, indexability signals, and primary keyword;
-- the tool UI and whether processing is local or server-side;
-- the heading tree and the explanation blocks after the tool;
-- FAQ, limitations, privacy/security claims, related-tool links, service links, and global footer links;
-- mobile behavior, load cost, dependencies, and the primary conversion path.
+Use `agent-browser` for live pages and `rg --files` for local implementations. Keep observed facts separate from hypotheses. Do not copy another site's text, visual assets, branding, or code.
 
-Use `agent-browser` when a live page must be read or interacted with. Use `rg --files` and the actual project files when auditing a local implementation. Treat observed facts and hypotheses as separate fields in the report.
+## 2. Accept a research packet
 
-### 2. Research the keyword before designing a tool
-
-Use this order:
-
-1. Start with a small set of seed problems stated in the user's language (for example, `画像を軽くしたい`, not only `画像圧縮`).
-2. Collect Google suggestions, related keywords, LSI/PAA questions, and—when the idea is already validated—competitor headings and co-occurring terms.
-3. Add search volume and SEO difficulty only when the data source is available; label stale or estimated metrics instead of presenting them as facts.
-4. Normalize and deduplicate variants, then group by one search intent and one tool job per candidate page.
-5. Score candidates on problem urgency, tool feasibility, search-intent clarity, likely repeat use, service fit, and implementation/maintenance cost. Prioritize a small cluster that can be shipped and internally linked, not a vanity list of keywords.
-
-#### Rakkokeyword API path
-
-If `RAKKO_KEYWORD_API_KEY` is available, run the bundled script. It uses the official API and never prints the key:
-
-```bash
-python3 /Users/koki/.codex/skills/free-tool-seo/scripts/rakko_keyword.py \
-  --keyword '業務改善' --mode bundle --pretty > /tmp/業務改善-keywords.json
-```
-
-Use a single mode when only one signal is needed:
-
-```bash
-python3 /Users/koki/.codex/skills/free-tool-seo/scripts/rakko_keyword.py \
-  --keyword '画像圧縮' --mode suggest --modes google, youtube --limit 200
-```
-
-The API uses `https://api.rakkokeyword.com`, `X-API-Key`, and POST endpoints such as `/v1/suggest-keywords`, `/v1/related-keywords`, `/v1/other-keywords`, `/v1/headline`, and `/v1/co-occurrence`. API access requires an eligible plan and is for internal use under the provider's terms. Do not commit the key, put it in HTML, or expose it in browser JavaScript. Do not run the `bundle` mode casually: the provider charges credits per endpoint.
-
-#### Browser fallback
-
-If there is no API key or the API is unavailable, use the browser with the user's existing session:
-
-1. Open `https://rakkokeyword.com/`.
-2. Enter the seed in the search box and choose `サジェストキーワード（Google）`; capture the result URL and visible results.
-3. Repeat with `関連キーワード`, `潜在的な検索キーワード/質問（LSI/PAA）`, and, where useful, `見出し抽出` and `共起語`.
-4. Use the site's free tier only within its visible limits. Never bypass login, rate limits, paywalls, robots, or anti-abuse controls.
-5. Save the raw result (URL, date, mode, seed, and visible rows) before summarizing. Mark browser-collected metrics as observed on that date.
-
-Prefer official APIs or exported results over scraping private endpoints. If browser automation is needed, follow the `agent-browser` skill's open → snapshot → interact → re-snapshot loop.
-
-### 3. Turn the research into a page cluster
-
-For each proposed page, write a compact record:
+Before implementation, require a compact packet from `$seo-keyword-research` or an equivalent first-party export:
 
 ```text
 primary keyword:
 job to be done:
 secondary variants:
-search intent: informational | utility | commercial | navigational
+search intent:
 tool input/output:
-privacy model: browser-local | server processing (explain retention)
-related tools (next/previous job):
-service CTA and why it is contextually earned:
-evidence and date:
+privacy model:
+evidence and retrieval date:
+related tools:
+service CTA and why it is earned:
 ```
 
-Keep one page focused on one job. Use adjacent pages for adjacent jobs (for example, compress → resize → convert → PDF), then link them in the order users naturally work.
+Check search-intent overlap with existing pages. One page should focus on one job. Link adjacent jobs in the order users naturally work.
 
-### 4. Build the AMIX-style page structure
+## 3. Build the AMIX-style page structure
 
-Use this as a default, adapting it to the task:
+Adapt this structure to the tool:
 
-1. **Tool shell** — one clear H1, one-line promise, immediate UI, sensible defaults, keyboard and mobile support, and a result state.
-2. **Explanation block A: what it solves** — plain-language use cases, supported formats, limits, and expected output.
-3. **Explanation block B: why/how it works** — short technical explanation, security/privacy behavior, caveats, and FAQ. Add tables only when they clarify a choice.
-4. **Contextual service CTA** — link to the relevant service only when the tool's job naturally reveals a deeper need. Use a specific destination (for example, a design service or consultation page), not a generic sales interruption.
-5. **Related tools** — link to the next useful operations, with one-sentence descriptions. Finish with tool index, terms/privacy, contact, and the operating brand.
+1. **Tool shell** — one clear H1, one-line promise, immediate UI, sensible defaults, keyboard support, accessible labels, and a visible result state.
+2. **Explanation A: what it solves** — use cases, supported inputs, limits, expected output, and who should use it.
+3. **Explanation B: how it works** — short technical explanation, browser-local/server-processing behavior, security caveats, and FAQ.
+4. **Contextual service CTA** — link to a specific service only when the tool reveals a deeper need. The page must be useful before the CTA.
+5. **Related tools** — link to the next operation with one-sentence descriptions, then the tool index, terms/privacy, contact, and operating brand.
 
-The page must be useful before the CTA. Do not pad pages with keyword-stuffed text, false claims, or generic FAQs. Include visible copyright/licensing and privacy language where the tool handles files or user input.
+Do not pad pages with keyword-stuffed text, false claims, or generic FAQs. State limitations and privacy behavior visibly.
 
-### 5. Implement and verify
+## 4. Implement the smallest useful tool first
 
-- Prefer browser-local processing for personal files when technically practical; state clearly whether bytes leave the device.
-- Keep the first interaction fast. Lazy-load heavyweight libraries and avoid uploading files merely to perform a client-side transform.
+- Prefer browser-local processing for personal files and form data when practical; state clearly whether bytes leave the device.
+- Keep first interaction fast. Lazy-load heavyweight libraries and avoid uploading files for a client-side transform.
 - Use semantic headings, labels, focus states, error messages, downloadable results, and mobile layouts.
 - Add unique title/description/canonical, descriptive URLs, Open Graph basics, and structured data only when it describes visible content.
-- Verify the real interaction on desktop and mobile, page source/meta, internal-link targets, empty/error states, and a production-like build. Check that the CTA, related links, privacy text, and limits are truthful.
+- Use WebP/AVIF for generated raster assets. Keep exact labels, numbers, formulas, and process steps in HTML/SVG when accessibility and searchability matter.
 
-## AI顧問室 repository loop
+## 5. AI顧問室 repository loop
 
-When the current repository contains `seo/config.json`, use its daily factory instead of keeping research in chat:
+When the current repository contains `seo/config.json`, use the manual factory instead of keeping research in chat:
 
 ```bash
 python3 seo/scripts/run_daily.py --root .
 ```
 
-Read `seo/data/runs/YYYY-MM-DD/daily-brief.md`, inspect the raw observations and audit evidence, then select one candidate. Create a reviewed JSON spec under `seo/tool-specs/` and generate the page only after checking search-intent overlap:
+Read `seo/data/runs/YYYY-MM-DD/daily-brief.md`, inspect raw observations and audit evidence, then select one candidate. Create a reviewed JSON spec under `seo/tool-specs/` and generate the page only after checking overlap:
 
 ```bash
 python3 seo/scripts/generate_tool_page.py \
@@ -115,19 +73,27 @@ python3 seo/scripts/generate_tool_page.py \
   --root . --output-dir tools
 ```
 
-The factory is intentionally review-first: daily research and structural audits may run unattended, but generated pages must be tested and approved before deployment. Put a Search Console CSV export at `seo/data/gsc/latest.csv` to add first-party query opportunities to the daily brief.
+The factory is review-first: research and structural audits may run unattended, but generated pages must be tested and approved before deployment. Put a Search Console CSV export at `seo/data/gsc/latest.csv` to add first-party opportunities.
 
-## SEO article production
+## 6. Article support
 
-For article clusters supporting the tools, keep one primary search intent per article and route readers through `answer → evidence → example → free tool → next action`. Use Google/Bing/YouTube suggestions plus first-party Search Console data where available, and record retrieval dates for time-sensitive claims. Prefer official/primary sources for legal, policy, pricing, grants, and product specifications.
+For an article that supports a tool, keep one primary intent and route readers through `answer → evidence → example → free tool → next action`. Use the keyword packet and first-party Search Console data where available. Prefer official/primary sources for policy, pricing, legal, grants, and product specifications.
 
-Use image generation for one or two supporting visuals per article (hero, editorial scene, or abstract concept). Keep exact Japanese labels, numbers, formulas, and process diagrams in HTML/SVG so they remain accessible, searchable, and accurate; do not rely on generated text inside an image. Save stable assets under `assets/articles/<slug>/`, give each image a descriptive alt, and verify mobile rendering and file weight before publishing.
+Use one or two supporting visuals per article when useful. Save assets under `assets/articles/<slug>/`, add descriptive alt text, and verify mobile rendering and file weight. Exact Japanese labels and numerical diagrams should remain accessible HTML/SVG whenever possible.
 
-## Output format
+## 7. Verify before shipping
 
-When asked for research, return a compact table of keyword, intent, tool idea, evidence source/date, and next action, followed by a recommended cluster and page outline. When asked to build, ship the smallest useful tool page first, then add the explanatory and navigation layers, and report what was verified.
+Test the real interaction on desktop and mobile:
 
-## Bundled resources
+- page source, title, meta description, canonical, OGP, schema, and robots behavior;
+- internal-link targets and no broken local links;
+- empty, invalid, and normal input states;
+- privacy text and actual network behavior;
+- keyboard/focus behavior and tap targets;
+- CTA and related-tool links;
+- image dimensions, format, file weight, and alt text;
+- `python3 seo/scripts/site_audit.py --root .` for the repository baseline.
 
-- `scripts/rakko_keyword.py` — official Rakkokeyword API client for suggest/related/LSI/headline/co-occurrence research, including an explicit opt-in bundle.
-- `references/keyword-research.md` — API/browser decision rules, metric caveats, and the research record schema.
+## Output
+
+Report the selected research packet, page structure, implementation files, privacy model, internal-link map, service CTA rationale, and verification results. Ship the smallest useful tool page first, then add explanatory and navigation layers.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SEO Keyword Research"
+  short_description: "Research and cluster Japanese SEO keywords"
+  default_prompt: "Use $seo-keyword-research to collect, normalize, cluster, and score keywords for an article or free tool."
